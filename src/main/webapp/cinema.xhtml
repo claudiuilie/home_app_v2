@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Cinema</title>
+<!--    <h:outputStylesheet library="css" name="carousel.css"/>-->
+</h:head>
+
+<body>
+<!--    <div class="container">-->
+<ui:insert name="content">
+    <ui:include src="templates/content.xhtml"/>
+</ui:insert>
+<div class="container mb-5">
+    <h:form>
+        <div class="form-group">
+            <label class="text-info" style="color: #1c7430">Search:</label>
+            <h:inputText value="#{cinema.input}" required="true" styleClass="form-control"/>
+        </div>
+        <h:commandButton value="submit" action="#{cinema.searchMovies}" styleClass="btn btn-primary btn-lg btn-block"/>
+    </h:form>
+</div>
+
+        <section class="page-section portfolio">
+            <div class="container col-md-6 col-lg-4 mt-3">
+            <div class="card" style="width: 80%;">
+                <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWW04_Gt3YCljUX9LCTcTJTjZP8Ebeh_Xx75QRU1pzLMZxtVnXZDUhq3M" alt="Card image cap"/>
+
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img class="d-block w-100" src="..." alt="First slide"/>
+                        </div>
+                        <ui:repeat value="#{cinema.movieList}" var="movies">
+                            <div class="carousel-item">
+                                <div class="card-body">
+                                    <span>#{movies.title}</span>
+                                    <p class="card-text">#{movies.imdbUrl}</p>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">#{movies.size}</li>
+                                    <li class="list-group-item">#{movies.peers}</li>
+                                    <li class="list-group-item">#{movies.seeders}</li>
+                                </ul>
+                                <div class="card-body">
+                                    <a href="#" class="card-link">Card link</a>
+                                    <a href="#" class="card-link">Another link</a>
+                                </div>
+                            </div>
+                        </ui:repeat>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+            </div>
+        </section>
+<!--                <div class="row">-->
+
+<!--                        <div class="col-md-6 col-lg-4 mt-3">-->
+<!--                            <div class="portfolio-item mx-auto">-->
+<!--                                <div class="card text-center text-secondary">-->
+<!--                                    <div class="card-header p-0">-->
+
+<!--                                    </div>-->
+<!--                                    <div class="card-body">-->
+<!--                                        <img src="#{moviesList.poster}" alt="Poster not found." style="width:250px;height:500px;"/>-->
+<!--&lt;!&ndash;                                        <div>Magnet: #{moviesList.magnetLink}</div>&ndash;&gt;-->
+<!--                                    </div>-->
+<!--                                    <div class="card-footer">-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--    </div>-->
+
+<!--    <h:outputScript library="js" name="carousel.js"/>-->
+</body>
+
+</html>
+
