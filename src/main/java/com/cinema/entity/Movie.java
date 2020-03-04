@@ -7,7 +7,6 @@ public class Movie {
     private String seeders;
     private String peers;
     private String uploadDate;
-    private String poster;
     private String magnetLink;
     private boolean onDisk;
     private String imdbUrl;
@@ -113,14 +112,6 @@ public class Movie {
         this.uploadDate = uploadDate;
     }
 
-    public String getPoster() {
-        return poster;
-    }
-
-    public void setPoster(String poster) {
-        this.poster = poster;
-    }
-
     public boolean isOnDisk() {
         return onDisk;
     }
@@ -150,7 +141,6 @@ public class Movie {
                 ", seeders='" + seeders + '\'' +
                 ", peers='" + peers + '\'' +
                 ", uploadDate='" + uploadDate + '\'' +
-                ", poster='" + poster + '\'' +
                 ", magnetLink='" + magnetLink + '\'' +
                 ", onDisk=" + onDisk +
                 ", imdbUrl='" + imdbUrl + '\'' +

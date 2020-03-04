@@ -1,6 +1,7 @@
 package com.cinema.helpers;
 
 import com.cinema.entity.Movie;
+import com.cinema.entity.MovieDetails;
 import com.cinema.resources.TrackerConfig;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -38,7 +39,7 @@ public class FetchMovies  {
 
         // create movie details object that containts title,thumbnail, details etc..
 
-//        MovieDetails movieDetails = GoogleSearch.fetchMovieDetails(input);
+        MovieDetails movieDetails = GoogleSearch.fetchMovieDetails(input);
 
         if(body.size() > 0){
             String[] sizeAndUploadDate = null;
@@ -51,13 +52,15 @@ public class FetchMovies  {
                 movie.setPeers(e.getElementsByAttribute("align").last().text());
                 movie.setMagnetLink(e.getElementsByAttributeValue("title","Download this torrent using magnet").attr("href"));
                 sizeAndUploadDate = e.getElementsByTag("font").text().split(",");
-                movie.setSize(sizeAndUploadDate[1]);
-                movie.setUploadDate(sizeAndUploadDate[0]);
-//                movie.setPoster(movieDetails.getThumbnailSrc());
-                movie.setPoster("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWW04_Gt3YCljUX9LCTcTJTjZP8Ebeh_Xx75QRU1pzLMZxtVnXZDUhq3M");
-
-                System.out.println(movie);
+                movie.setSize(sizeAndUploadDate[1].replace("Size ",""));
+                movie.setUploadDate(sizeAndUploadDate[0].replace("Uploaded ",""));
+                movie.setThumbnail(movieDetails.getThumbnailSrc());
+                movie.setImdbUrl(movieDetails.getFormattedUrl());
+                movie.setRatingValue(movieDetails.getRatingValue());
+                movie.setRatingCount(movieDetails.getRatingCount());
+                movie.setReviewCount(movieDetails.getReviewCount());
                 movies.add(movie);
+                System.out.println(movie);
             }
         }
 
