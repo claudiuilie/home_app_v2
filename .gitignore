@@ -1,3 +1,4 @@
 target
 .idea/
-src/main/java/com/cinema/resources/
+src/main/java/com/cinema/resources/GoogleApiConfig.java
+src/main/java/com/cinema/resources/TrackerConfig.java

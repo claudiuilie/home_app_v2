@@ -21,7 +21,7 @@ public class MovieDetails {
     }
 
     public String getThumbnailSrc() {
-        return pagemap.cse_thumbnail.get(0).src;
+        return pagemap.cse_image.get(0).src;
     }
 
     public String getRatingValue() {
@@ -36,15 +36,12 @@ public class MovieDetails {
     }
 
     private static class Pagemap{
-        ArrayList<Thumbnail> cse_thumbnail;
+        ArrayList<Thumbnail> cse_image;
         ArrayList<Rating> aggregaterating;
     }
 
     public static class Thumbnail {
         String src;
-        int width;
-        int height;
-
     }
 
     public static class Rating {

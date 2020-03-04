@@ -1,6 +1,6 @@
 package com.cinema.entity;
 
-public class MoviesList {
+public class Movie {
 
     private String title;
     private String size;

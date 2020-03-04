@@ -1,20 +1,29 @@
-$('#carouselExample').on('slide.bs.carousel', function (e) {
+function main(){
+    let carouselItems = $('.carousel-item');
+    let carouselIndicators = $('.carousel-indicators');
+    let badgeValidator = $('.badge-validator');
 
-    var $e = $(e.relatedTarget);
-    var idx = $e.index();
-    var itemsPerSlide = 4;
-    var totalItems = $('.carousel-item').length;
+    if(carouselItems.length > 0){
+        $(carouselIndicators).append(`<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>`);
 
-    if (idx >= totalItems-(itemsPerSlide-1)) {
-        var it = itemsPerSlide - (totalItems - idx);
-        for (var i=0; i<it; i++) {
-            // append slides to end
-            if (e.direction=="left") {
-                $('.carousel-item').eq(i).appendTo('.carousel-inner');
-            }
-            else {
-                $('.carousel-item').eq(0).appendTo('.carousel-inner');
-            }
+        for(let c = 1; c < carouselItems.length; c++){
+            $(carouselIndicators).append(`<li data-target="#carouselExampleIndicators" data-slide-to="${c}"></li>`)
         }
+        carouselItems[0].classList.add("active");
+
     }
-});
+
+    for(let x = 0; x < badgeValidator.length; x++){
+        let spanValue = parseInt(badgeValidator[x].innerText);
+        if(spanValue === 0 ) {
+            badgeValidator[x].classList.add("badge-danger");
+        }else if(spanValue < 10 ){
+            badgeValidator[x].classList.add("badge-warning");
+        }else if(spanValue > 10){
+            badgeValidator[x].classList.add("badge-success");
+        }
+
+    }
+}
+
+main();

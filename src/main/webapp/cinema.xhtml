@@ -7,7 +7,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
     <title>Cinema</title>
-<!--    <h:outputStylesheet library="css" name="carousel.css"/>-->
+    <h:outputStylesheet library="css" name="carousel.css"/>
 </h:head>
 
 <body>
@@ -24,75 +24,70 @@
         <h:commandButton value="submit" action="#{cinema.searchMovies}" styleClass="btn btn-primary btn-lg btn-block"/>
     </h:form>
 </div>
-
         <section class="page-section portfolio">
-            <div class="container col-md-6 col-lg-4 mt-3">
-            <div class="card" style="width: 80%;">
-                <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWW04_Gt3YCljUX9LCTcTJTjZP8Ebeh_Xx75QRU1pzLMZxtVnXZDUhq3M" alt="Card image cap"/>
-
-                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                    </ol>
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img class="d-block w-100" src="..." alt="First slide"/>
-                        </div>
-                        <ui:repeat value="#{cinema.movieList}" var="movies">
-                            <div class="carousel-item">
-                                <div class="card-body">
-                                    <span>#{movies.title}</span>
-                                    <p class="card-text">#{movies.imdbUrl}</p>
-                                </div>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">#{movies.size}</li>
-                                    <li class="list-group-item">#{movies.peers}</li>
-                                    <li class="list-group-item">#{movies.seeders}</li>
-                                </ul>
-                                <div class="card-body">
-                                    <a href="#" class="card-link">Card link</a>
-                                    <a href="#" class="card-link">Another link</a>
-                                </div>
-                            </div>
-                        </ui:repeat>
-                    </div>
-                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
+            <h:panelGroup layout="block" styleClass="container-md" rendered="#{cinema.movieList.size() == 0 and cinema.input != null}">
+                <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+                    No results.
+                    <button type="button" class="close text-danger" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">x</span>
+                    </button>
                 </div>
-            </div>
-            </div>
+            </h:panelGroup>
+            <h:panelGroup layout="block" rendered ="#{cinema.movieList.size() != 0 }" styleClass="container">
+                <h:panelGroup layout="block" styleClass="card mb">
+                    <h:graphicImage value="#{cinema.movieThumbnail}" alt="No image" styleClass="card-img-top border"/>
+                    <div class="p-2" style="background: #cecece">
+                      <h3>
+                         <a href="#{cinema.movieLink}" class="badge badge-warning float-right" target="_blank">
+                             <strong>IMDb</strong>
+                         </a>
+                       </h3>
+                        <div class="ratings">
+                            <div class="empty-stars"></div>
+                            <div class="full-stars" style="width:70%"></div>
+                        </div>
+                    </div>
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators" style="margin-bottom:250px;">
+                        </ol>
+                        <div class="carousel-inner">
+                            <ui:repeat value="#{cinema.movieList}" var="movie" >
+                                <div class="carousel-item" >
+                                    <div class="card-body">
+                                        <span>#{movie.title}</span>
+                                    </div>
+                                    <ul class="list-group list-group-flush ">
+                                        <li class="list-group-item text-center">
+                                            <span class="badge badge-secondary">Seeds:
+                                              <span class="badge badge-validator">${movie.seeders}</span>
+                                            </span>
+                                            <span class="badge badge-secondary">Peers:
+                                              <span class="badge badge-validator">${movie.peers}</span>
+                                            </span>
+                                            <span class="badge badge-secondary">Size:
+                                              <span class="badge badge-info">${movie.size}</span>
+                                            </span>
+                                            <span class="badge badge-secondary">Uploaded:
+                                              <span class="badge badge-info">${movie.uploadDate}</span>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </ui:repeat>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"/>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"/>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </h:panelGroup>
+            </h:panelGroup>
         </section>
-<!--                <div class="row">-->
-
-<!--                        <div class="col-md-6 col-lg-4 mt-3">-->
-<!--                            <div class="portfolio-item mx-auto">-->
-<!--                                <div class="card text-center text-secondary">-->
-<!--                                    <div class="card-header p-0">-->
-
-<!--                                    </div>-->
-<!--                                    <div class="card-body">-->
-<!--                                        <img src="#{moviesList.poster}" alt="Poster not found." style="width:250px;height:500px;"/>-->
-<!--&lt;!&ndash;                                        <div>Magnet: #{moviesList.magnetLink}</div>&ndash;&gt;-->
-<!--                                    </div>-->
-<!--                                    <div class="card-footer">-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                </div>-->
-<!--            </div>-->
-
-<!--    </div>-->
-
-<!--    <h:outputScript library="js" name="carousel.js"/>-->
+<h:outputScript library="js" name="carousel.js"/>
 </body>
 
 </html>
