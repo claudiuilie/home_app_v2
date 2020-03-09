@@ -50,15 +50,15 @@ public class FetchMovies  {
                 movie.setTitle(e.getElementsByClass("detName").text());
                 movie.setSeeders(e.getElementsByAttribute("align").first().text());
                 movie.setPeers(e.getElementsByAttribute("align").last().text());
-                movie.setMagnetLink(e.getElementsByAttributeValue("title","Download this torrent using magnet").attr("href"));
+                movie.setMagnet_link(e.getElementsByAttributeValue("title","Download this torrent using magnet").attr("href"));
                 sizeAndUploadDate = e.getElementsByTag("font").text().split(",");
                 movie.setSize(sizeAndUploadDate[1].replace("Size ",""));
-                movie.setUploadDate(sizeAndUploadDate[0].replace("Uploaded ",""));
+                movie.setUpload_date(sizeAndUploadDate[0].replace("Uploaded ",""));
                 movie.setThumbnail(movieDetails.getThumbnailSrc());
-                movie.setImdbUrl(movieDetails.getFormattedUrl());
-                movie.setRatingValue(movieDetails.getRatingValue());
-                movie.setRatingCount(movieDetails.getRatingCount());
-                movie.setReviewCount(movieDetails.getReviewCount());
+                movie.setImdb_url(movieDetails.getFormattedUrl());
+                movie.setRating_value(movieDetails.getRatingValue());
+                movie.setRating_count(movieDetails.getRatingCount());
+                movie.setReview_count(movieDetails.getReviewCount());
                 movies.add(movie);
                 System.out.println(movie);
             }

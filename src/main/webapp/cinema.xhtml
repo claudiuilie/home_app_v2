@@ -8,7 +8,6 @@
 <h:head>
     <title>Cinema</title>
     <h:outputStylesheet library="css" name="carousel.css"/>
-    <script src="https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js"/>
 </h:head>
 
 <body>
@@ -84,7 +83,7 @@
                                               <span class="badge badge-info">${movie.size}</span>
                                             </span>
                                                     <span class="badge badge-secondary">Uploaded:
-                                              <span class="badge badge-info">${movie.uploadDate}</span>
+                                              <span class="badge badge-info">${movie.upload_date}</span>
                                             </span>
                                                 </li>
                                             </ul>
@@ -104,7 +103,9 @@
                     </h:panelGroup>
                 </section>
             </div>
-            <div class="tab-pane" id="watchlist" role="tabpanel" aria-labelledby="watchlist-tab">Watchlist</div>
+            <div class="tab-pane" id="watchlist" role="tabpanel" aria-labelledby="watchlist-tab">
+                #{cinema.watchList}
+            </div>
         </div>
     </div>
     <div class="card-footer">
@@ -114,7 +115,6 @@
 
 
 <h:outputScript library="js" name="carousel.js"/>
-<h:outputScript library="js" name="down.js"/>
 </body>
 
 </html>
