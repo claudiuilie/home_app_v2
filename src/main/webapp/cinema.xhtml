@@ -66,27 +66,30 @@
                                 <ol class="carousel-indicators" style="margin-bottom:250px;">
                                 </ol>
                                 <div class="carousel-inner">
-                                    <ui:repeat value="#{cinema.movieList}" var="movie" >
+                                    <ui:repeat value="#{cinema.movieList}" var="m" >
                                         <div class="carousel-item" >
                                             <div class="card-body">
-                                                <h3 class="text-center">#{movie.title}</h3>
+                                                <h3 class="text-center">#{m.title}</h3>
                                             </div>
                                             <ul class="list-group list-group-flush ">
-                                                <li class="list-group-item text-center">
+                                            <li class="list-group-item text-center">
                                             <span class="badge badge-secondary">Seeds:
-                                              <span class="badge badge-validator">${movie.seeders}</span>
+                                              <span class="badge badge-validator">${m.seeders}</span>
                                             </span>
-                                                    <span class="badge badge-secondary">Peers:
-                                              <span class="badge badge-validator">${movie.peers}</span>
+                                                <span class="badge badge-secondary">Peers:
+                                              <span class="badge badge-validator">${m.peers}</span>
                                             </span>
-                                                    <span class="badge badge-secondary">Size:
-                                              <span class="badge badge-info">${movie.size}</span>
+                                                <span class="badge badge-secondary">Size:
+                                              <span class="badge badge-info">${m.size}</span>
                                             </span>
-                                                    <span class="badge badge-secondary">Uploaded:
-                                              <span class="badge badge-info">${movie.upload_date}</span>
+                                                <span class="badge badge-secondary">Uploaded:
+                                              <span class="badge badge-info">${m.upload_date}</span>
                                             </span>
-                                                </li>
-                                            </ul>
+                                            </li>
+                                        </ul>
+                                            <div class="card-body">
+                                                ....watchlist
+                                            </div>
                                         </div>
                                     </ui:repeat>
                                 </div>

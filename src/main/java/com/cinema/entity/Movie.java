@@ -1,5 +1,8 @@
 package com.cinema.entity;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
 public class Movie {
     private int id;
     private String title;
