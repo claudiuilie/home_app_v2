@@ -4,17 +4,16 @@ package com.cinema.beans;
 import com.cinema.entity.Movie;
 import com.cinema.helpers.FetchMovies;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import java.io.IOException;
 import java.util.*;
 
-@ManagedBean(name = "cinema")
-@RequestScoped
-public class CinemaBean {
+@ManagedBean(name = "searchMovies")
+@SessionScoped
+public class SearchMoviesBean {
 
     private String input;
     private List<Movie> movieList = new LinkedList<>();
-    private List<Movie> watchList = new LinkedList<>();
     private String movieThumbnail;
     private String movieLink;
 
@@ -31,6 +30,7 @@ public class CinemaBean {
     }
 
     public void setMovieList(List<Movie> movieList) {
+        this.movieList.clear();
         this.movieList = movieList;
     }
 
@@ -50,21 +50,9 @@ public class CinemaBean {
         this.movieLink = movieLink;
     }
 
-    public List<Movie> getWatchList() {
-        this.watchList = this.movieList;
-        return watchList;
-    }
-
-    //method
-
-    public void setWatchList(List<Movie> watchList) {
-        this.watchList = this.movieList;
-    }
-
     public void searchMovies() throws IOException {
 
         setMovieList(FetchMovies.fetchMovies(this.input));
-
 
 
 //        Movie movie1 = new Movie();
@@ -77,7 +65,6 @@ public class CinemaBean {
 //        movie1.setImdb_url("https://www.imdb.com/title/tt8421350/");
 //        movie1.setThumbnail("https://m.media-amazon.com/images/M/MV5BZGIxNDUzMDktYTg1ZC00OGRiLTliNWUtZmY4NTE0MDU0YWU4XkEyXkFqcGdeQXVyODUxOTU0OTg@._V1_UY1200_CR90,0,630,1200_AL_.jpg");
 //
-//
 //        Movie movie2 = new Movie();
 //        movie2.setSize("3gb");
 //        movie2.setTitle("Mov 2");
@@ -85,6 +72,7 @@ public class CinemaBean {
 //        movie2.setSeeders("16");
 //        movie2.setUpload_date("21-02-2020");
 //        movie2.setRating_value("5.8");
+//        movie2.setOn_watchlist(true);
 //
 //        Movie movie3 = new Movie();
 //        movie3.setSize("4gb");
@@ -94,6 +82,7 @@ public class CinemaBean {
 //        movie3.setUpload_date("21-02-2020");
 //        movie3.setRating_value("9.8");
 //
+//        this.movieList.clear();
 //        this.movieList.add(movie1);
 //        this.movieList.add(movie2);
 //        this.movieList.add(movie3);

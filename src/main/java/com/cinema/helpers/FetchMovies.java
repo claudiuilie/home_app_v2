@@ -11,6 +11,8 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.*;
 
 /*
@@ -37,8 +39,25 @@ public class FetchMovies  {
         Elements body = document.getElementsByTag("tbody");
         List<Movie> movies = new LinkedList<>();
 
-        // create movie details object that containts title,thumbnail, details etc..
+        //select * from watchlist to set on_watchlist flag
+        SqlConnector sqlConnector = new SqlConnector();
+        ResultSet watchlistSet = sqlConnector.selectResults("SELECT title FROM watchlist");
+        List<String> watchlistTitles = new ArrayList<>();
 
+        while(true){
+            try {
+                if (!watchlistSet.next()) break;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                watchlistTitles.add(watchlistSet.getString("title"));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // create movie details object that containts title,thumbnail, details etc..
         MovieDetails movieDetails = GoogleSearch.fetchMovieDetails(input);
 
         if(body.size() > 0){
@@ -59,6 +78,8 @@ public class FetchMovies  {
                 movie.setRating_value(movieDetails.getRatingValue());
                 movie.setRating_count(movieDetails.getRatingCount());
                 movie.setReview_count(movieDetails.getReviewCount());
+                movie.setDescription(movieDetails.getSnippet());
+                movie.setOn_watchlist(watchlistTitles.contains(movie.getTitle()));
                 movies.add(movie);
                 System.out.println(movie);
             }

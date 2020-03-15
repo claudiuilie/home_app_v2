@@ -1,68 +1,53 @@
 package com.cinema.helpers;
 
+import com.cinema.resources.SqlConfig;
 import java.sql.*;
 
-class sqlConnector {
-
-    // JDBC driver name and database URL
-    static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/cinema";
-
-    //  Database credentials
-    static final String USER = "root";
-    static final String PASS = "";
-
-    public static void main(String[] args) {
-        Connection conn = null;
-        Statement stmt = null;
-        try{
-            //STEP 2: Register JDBC driver
-            Class.forName("com.mysql.jdbc.Driver");
-
-            //STEP 3: Open a connection
-            System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
-
-            //STEP 4: Execute a query
-            System.out.println("Creating statement...");
-            stmt = conn.createStatement();
-            String sql;
-            sql = "SELECT * FROM movies";
-            ResultSet rs = stmt.executeQuery(sql);
-
-            //STEP 5: Extract data from result set
-            while(rs.next()){
-                //Retrieve by column name
-                int id  = rs.getInt("id");
-                String title = rs.getString("title");
+public class SqlConnector {
 
 
-                //Display values
-                System.out.print("ID: " + id);
-                System.out.print(", title: " + title);
+    public ResultSet selectResults(String query) {
+
+        ResultSet resultSet = null;
+            try {
+
+                Class.forName(SqlConfig.JDBC_DRIVER);
+                // Establish connection object
+                Connection conn = DriverManager.getConnection(SqlConfig.DB_URL,SqlConfig.USER,SqlConfig.PASS);
+                //Create SQL statement object to send to the database
+                Statement statement = conn.createStatement();
+
+                //Execute the statement object;
+                resultSet =  statement.executeQuery(query);
+
+                //inserting data
+//            rowsAffected = statement.executeUpdate("insert into employees_tbl values(900,'Michael','Sales',500)");
+//            System.out.println(rowsAffected);
+
+            } catch (SQLException | ClassNotFoundException e) {
+                e.printStackTrace();
             }
-            //STEP 6: Clean-up environment
-            rs.close();
-            stmt.close();
-            conn.close();
-        } catch(Exception se){
-            //Handle errors for JDBC
-            se.printStackTrace();
-        }//Handle errors for Class.forName
-        finally{
-            //finally block used to close resources
-            try{
-                if(stmt!=null)
-                    stmt.close();
-            }catch(SQLException se2){
-            }// nothing we can do
-            try{
-                if(conn!=null)
-                    conn.close();
-            }catch(SQLException se){
-                se.printStackTrace();
-            }//end finally try
-        }//end try
-        System.out.println("Goodbye!");
-    }//end main
+
+            return resultSet;
+        }
+
+    public int insertResult (String query){
+        int result = 0;
+        try {
+
+            Class.forName(SqlConfig.JDBC_DRIVER);
+            // Establish connection object
+            Connection conn = DriverManager.getConnection(SqlConfig.DB_URL,SqlConfig.USER,SqlConfig.PASS);
+            //Create SQL statement object to send to the database
+            Statement statement = conn.createStatement();
+
+            //Execute the statement object;
+            result =  statement.executeUpdate(query);
+            
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
 }

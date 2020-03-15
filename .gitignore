@@ -2,3 +2,5 @@ target
 .idea/
 src/main/java/com/cinema/resources/GoogleApiConfig.java
 src/main/java/com/cinema/resources/TrackerConfig.java
+
+src/main/java/com/cinema/resources/SqlConfig.java

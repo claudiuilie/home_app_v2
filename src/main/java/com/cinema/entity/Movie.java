@@ -1,7 +1,8 @@
 package com.cinema.entity;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import com.cinema.helpers.SqlConnector;
+
+import java.sql.ResultSet;
 
 public class Movie {
     private int id;
@@ -23,6 +24,8 @@ public class Movie {
     private int torr_error;
     private int torr_mb_s;
     private boolean on_disk;
+    private boolean on_watchlist;
+
 
     public int getId() {
         return id;
@@ -176,6 +179,47 @@ public class Movie {
         this.on_disk = on_disk;
     }
 
+    public boolean getOn_watchlist() {
+        return on_watchlist;
+    }
+
+    public void setOn_watchlist(boolean on_watchlist) {
+        this.on_watchlist = on_watchlist;
+    }
+
+
+    /*
+    *1.Add movie to watchlist
+    *2.Render watchlist button after select from db
+     */
+    public void addToWatchlist(){
+
+        SqlConnector sqlConnector = new SqlConnector();
+        String insert = "INSERT INTO home_app.watchlist (id, title, `size`, seeders, peers, upload_date, magnet_link, imdb_url, thumbnail, description, rating_value, rating_count, review_count) " +
+                        "VALUES(NULL,'"+this.getTitle() +"','"+
+                                        this.getSize()+"','"+
+                                        this.getSeeders()+"','"+
+                                        this.getPeers()+"','"+
+                                        this.getUpload_date()+"','"+
+                                        this.getMagnet_link()+"','"+
+                                        this.getImdb_url()+"','"+
+                                        this.getThumbnail()+"','"+
+                                        this.getDescription()+"','"+
+                                        this.getRating_value()+"','"+
+                                        this.getRating_count()+"','"+
+                                        this.getReview_count()+"')";
+
+        int result = sqlConnector.insertResult(insert);
+        if(result > 0 ){
+            System.out.println("Affected rows: "+result);
+            System.out.println("Added to watchlist");
+            setOn_watchlist(true);
+        }else if(result == 0){
+            System.out.println("Error on insert...");
+            setOn_watchlist(false);
+        }
+    }
+
     public void downloadMovie() {
 
 // method to download
@@ -183,10 +227,6 @@ public class Movie {
 
     public void deleteMovie() {
 //method to delete
-    }
-
-    public void findOnDisk() {
-        //find on disk
     }
 
     @Override
