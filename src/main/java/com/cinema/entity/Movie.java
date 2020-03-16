@@ -2,7 +2,10 @@ package com.cinema.entity;
 
 import com.cinema.helpers.SqlConnector;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Movie {
     private int id;
@@ -19,7 +22,7 @@ public class Movie {
     private String rating_count;
     private String review_count;
     private int torr_posted;
-    private int torr_pause;
+    private int torr_paused;
     private int torr_finish;
     private int torr_error;
     private int torr_mb_s;
@@ -139,12 +142,12 @@ public class Movie {
         this.torr_posted = torr_posted;
     }
 
-    public int getTorr_pause() {
-        return torr_pause;
+    public int getTorr_paused() {
+        return torr_paused;
     }
 
-    public void setTorr_pause(int torr_pause) {
-        this.torr_pause = torr_pause;
+    public void setTorr_paused(int torr_pause) {
+        this.torr_paused = torr_pause;
     }
 
     public int getTorr_finish() {
@@ -196,20 +199,24 @@ public class Movie {
 
         SqlConnector sqlConnector = new SqlConnector();
         String insert = "INSERT INTO home_app.watchlist (id, title, `size`, seeders, peers, upload_date, magnet_link, imdb_url, thumbnail, description, rating_value, rating_count, review_count) " +
-                        "VALUES(NULL,'"+this.getTitle() +"','"+
-                                        this.getSize()+"','"+
-                                        this.getSeeders()+"','"+
-                                        this.getPeers()+"','"+
-                                        this.getUpload_date()+"','"+
-                                        this.getMagnet_link()+"','"+
-                                        this.getImdb_url()+"','"+
-                                        this.getThumbnail()+"','"+
-                                        this.getDescription()+"','"+
-                                        this.getRating_value()+"','"+
-                                        this.getRating_count()+"','"+
-                                        this.getReview_count()+"')";
+                        "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-        int result = sqlConnector.insertResult(insert);
+        List<String> insertArr = new ArrayList<>();
+        insertArr.add(null);
+        insertArr.add(this.getTitle());
+        insertArr.add(this.getSize());
+        insertArr.add(this.getSeeders());
+        insertArr.add(this.getPeers());
+        insertArr.add(this.getUpload_date());
+        insertArr.add(this.getMagnet_link());
+        insertArr.add(this.getImdb_url());
+        insertArr.add(this.getThumbnail());
+        insertArr.add(this.getDescription());
+        insertArr.add(this.getRating_value());
+        insertArr.add(this.getRating_count());
+        insertArr.add(this.getReview_count());
+
+        int result = sqlConnector.insertResult(insert, insertArr);
         if(result > 0 ){
             System.out.println("Affected rows: "+result);
             System.out.println("Added to watchlist");
@@ -220,13 +227,20 @@ public class Movie {
         }
     }
 
-    public void downloadMovie() {
-
-// method to download
+    public void deleteMovie() {
+        System.out.println("Delete");
     }
 
-    public void deleteMovie() {
-//method to delete
+    public void showDownloadProgress() {
+        System.out.println("Download progress");
+    }
+
+    public void downloadMovie() {
+        System.out.println("Download");
+    }
+
+    public void retryDownloadMovie() {
+        System.out.println("Retry");
     }
 
     @Override
@@ -246,7 +260,7 @@ public class Movie {
                 ", rating_count='" + rating_count + '\'' +
                 ", review_count='" + review_count + '\'' +
                 ", torr_posted=" + torr_posted +
-                ", torr_pause=" + torr_pause +
+                ", torr_pause=" + torr_paused +
                 ", torr_finish=" + torr_finish +
                 ", torr_error=" + torr_error +
                 ", torr_mb_s=" + torr_mb_s +

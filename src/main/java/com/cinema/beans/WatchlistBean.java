@@ -37,7 +37,25 @@ public class WatchlistBean {
             movie = new Movie();
             movie.setId(watchlistSet.getInt("id"));
             movie.setTitle(watchlistSet.getString("title"));
+            movie.setSize(watchlistSet.getString("size"));
+            movie.setSeeders(watchlistSet.getString("seeders"));
+            movie.setPeers(watchlistSet.getString("peers"));
+            movie.setUpload_date(watchlistSet.getString("upload_date"));
+            movie.setMagnet_link(watchlistSet.getString("magnet_link"));
+            movie.setImdb_url(watchlistSet.getString("imdb_url"));
+            movie.setDescription(watchlistSet.getString("description"));
+            movie.setRating_value(watchlistSet.getString("rating_value"));
+            movie.setRating_count(watchlistSet.getString("rating_count"));
+            movie.setReview_count(watchlistSet.getString("review_count"));
             movie.setThumbnail(watchlistSet.getString("thumbnail"));
+            movie.setTorr_posted(watchlistSet.getInt("torr_posted"));
+            movie.setTorr_paused(watchlistSet.getInt("torr_paused"));
+            movie.setTorr_finish(watchlistSet.getInt("torr_finish"));
+            movie.setTorr_error(watchlistSet.getInt("torr_error"));
+            movie.setTorr_mb_s(watchlistSet.getInt("torr_mb_s"));
+            movie.setTorr_mb_s(watchlistSet.getInt("on_disk"));
+            movie.setTorr_mb_s(watchlistSet.getInt("on_watchlist"));
+
             watchlist.add(movie);
         }
 
@@ -45,5 +63,3 @@ public class WatchlistBean {
         System.out.println(this.watchList);
     }
 }
-
-

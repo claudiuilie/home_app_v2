@@ -2,6 +2,7 @@ package com.cinema.helpers;
 
 import com.cinema.resources.SqlConfig;
 import java.sql.*;
+import java.util.List;
 
 public class SqlConnector {
 
@@ -20,10 +21,6 @@ public class SqlConnector {
                 //Execute the statement object;
                 resultSet =  statement.executeQuery(query);
 
-                //inserting data
-//            rowsAffected = statement.executeUpdate("insert into employees_tbl values(900,'Michael','Sales',500)");
-//            System.out.println(rowsAffected);
-
             } catch (SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
@@ -31,7 +28,7 @@ public class SqlConnector {
             return resultSet;
         }
 
-    public int insertResult (String query){
+    public int insertResult (String insert, List<String> values){
         int result = 0;
         try {
 
@@ -39,15 +36,18 @@ public class SqlConnector {
             // Establish connection object
             Connection conn = DriverManager.getConnection(SqlConfig.DB_URL,SqlConfig.USER,SqlConfig.PASS);
             //Create SQL statement object to send to the database
-            Statement statement = conn.createStatement();
+            PreparedStatement statement = conn.prepareStatement(insert);
 
+            for(int i=1; i <= values.size(); i++){
+                statement.setString(i, values.get(i - 1));
+            }
             //Execute the statement object;
-            result =  statement.executeUpdate(query);
+            System.out.println(statement);
+            result =  statement.executeUpdate();
             
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return result;
     }
-
 }

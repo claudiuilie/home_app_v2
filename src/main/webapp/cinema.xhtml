@@ -74,10 +74,10 @@
                                             <ul class="list-group list-group-flush ">
                                             <li class="list-group-item text-center">
                                             <span class="badge badge-secondary">Seeds:
-                                              <span class="badge badge-validator">${m.seeders}</span>
+                                              <span class="badge #{m.seeders eq 0 ? 'badge-danger' :  (m.seeders > 20 ? 'badge-success' : 'badge-warning') }">${m.seeders}</span>
                                             </span>
                                                 <span class="badge badge-secondary">Peers:
-                                              <span class="badge badge-validator">${m.peers}</span>
+                                              <span class="badge #{m.peers eq 0 ? 'badge-danger' :  (m.peers > 20 ? 'badge-success' : 'badge-warning') }">${m.peers}</span>
                                             </span>
                                                 <span class="badge badge-secondary">Size:
                                               <span class="badge badge-info">${m.size}</span>
@@ -114,14 +114,11 @@
                     <div class="container-md">
                         <div class="card mb">
                             <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
-                                <div class="carousel-item watchlist-item active">
-                                    <img class="d-block w-100" src="..." alt="First slide"/>
-                                </div>
                                 <ol class="carousel-indicators watchlist-indicators" style="margin-bottom:250px;">
                                 </ol>
                                 <div class="carousel-inner">
-                                    <ui:repeat value="#{watchlist.watchList}" var="w">
-                                        <div class="carousel-item watchlist-item">
+                                    <ui:repeat value="#{watchlist.watchList}" var="w" varStatus="wStatus">
+                                        <div class="carousel-item watchlist-item #{wStatus.index eq 0 ? 'active' : ''}">
                                             <img class="d-block w-100" src="#{w.thumbnail}" alt="First slide"/>
                                             <div class="card-body">
                                                 <h3 class="text-center">#{w.title}</h3>
@@ -129,19 +126,41 @@
                                             <ul class="list-group list-group-flush ">
                                                 <li class="list-group-item text-center">
                                             <span class="badge badge-secondary">Seeds:
-                                              <span class="badge badge-validator">${w.seeders}</span>
+                                              <span class="badge #{w.seeders eq 0 ? 'badge-danger' :  (w.seeders > 20 ? 'badge-success' : 'badge-warning') } ">#{w.seeders}</span>
                                             </span>
                                                     <span class="badge badge-secondary">Peers:
-                                              <span class="badge badge-validator">${w.peers}</span>
+                                              <span class="badge #{w.peers eq 0 ? 'badge-danger' :  (w.peers > 20 ? 'badge-success' : 'badge-warning') }">#{w.peers}</span>
                                             </span>
                                                     <span class="badge badge-secondary">Size:
-                                              <span class="badge badge-info">${w.size}</span>
+                                              <span class="badge badge-info">#{w.size}</span>
                                             </span>
                                                     <span class="badge badge-secondary">Uploaded:
-                                              <span class="badge badge-info">${w.upload_date}</span>
+                                              <span class="badge badge-info">#{w.upload_date}</span>
                                             </span>
                                                 </li>
                                             </ul>
+                                            <div class="p-2" id ="watchlistActions">
+                                                <h:form rendered="#{w.torr_posted eq 0}">
+                                                    <h:commandButton type="button" styleClass="btn btn-block btn-outline-success"
+                                                                     value="DOWNLOAD"/>
+                                                    <f:ajax event="click" listener="#{w.downloadMovie()}" render="@this"/>
+                                                </h:form>
+                                                <h:form rendered="#{w.torr_posted eq 1 and w.torr_finish eq 0 and w.torr_error eq 0 and w.torr_paused eq 0}">
+                                                    <h:commandButton type="button" styleClass="btn btn-block btn-outline-info"
+                                                                     value="PROGRESS"/>
+                                                    <f:ajax event="click" listener="#{w.showDownloadProgress()}" render="@this"/>
+                                                </h:form>
+                                                <h:form rendered="#{w.torr_posted eq 1 and w.torr_finish eq 1 and w.torr_error eq 0 and w.torr_paused eq 0}">
+                                                    <h:commandButton type="button" styleClass="btn btn-block btn-outline-danger"
+                                                                     value="DELETE"/>
+                                                    <f:ajax event="click" listener="#{w.deleteMovie()}" render="@this"/>
+                                                </h:form>
+                                                <h:form rendered="#{w.torr_posted eq 1 and w.torr_finish eq 0 and (w.torr_error eq 1 or w.torr_paused eq 1)}">
+                                                    <h:commandButton type="button" styleClass="btn btn-block btn-outline-warning"
+                                                                     value="RETRY"/>
+                                                    <f:ajax event="click" listener="#{w.retryDownloadMovie()}" render="@this"/>
+                                                </h:form>
+                                            </div>
                                         </div>
                                     </ui:repeat>
                                 </div>
