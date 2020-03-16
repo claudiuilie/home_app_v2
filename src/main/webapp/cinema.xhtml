@@ -139,23 +139,35 @@
                                             </span>
                                                 </li>
                                             </ul>
+
                                             <div class="p-2" id ="watchlistActions">
-                                                <h:form rendered="#{w.torr_posted eq 0}">
+                                                <h:form rendered="#{w.torr_posted eq 0 and w.torr_active eq 0}">
                                                     <h:commandButton type="button" styleClass="btn btn-block btn-outline-success"
                                                                      value="DOWNLOAD"/>
                                                     <f:ajax event="click" listener="#{w.downloadMovie()}" render="@this"/>
                                                 </h:form>
-                                                <h:form rendered="#{w.torr_posted eq 1 and w.torr_finish eq 0 and w.torr_error eq 0 and w.torr_paused eq 0}">
-                                                    <h:commandButton type="button" styleClass="btn btn-block btn-outline-info"
-                                                                     value="PROGRESS"/>
-                                                    <f:ajax event="click" listener="#{w.showDownloadProgress()}" render="@this"/>
+                                                <h:form rendered="#{w.torr_active eq 1}">
+                                                    <h:panelGroup layout="block" styleClass="card-body" rendered="#{w.torr_active eq 1}">
+                                                        <div class="watchlist-progress" id="#{w.id}" name ="#{w.magnet_link}">
+                                                            <span>
+                                                                Download speed:
+                                                            </span>
+                                                            <span>
+                                                                Progress:
+                                                            </span>
+                                                        </div>
+                                                    </h:panelGroup>
+                                                    <h:commandButton type="button" styleClass="btn btn-block btn-outline-danger"
+                                                                     value="STOP">
+                                                    <f:ajax event="click" listener="#{w.showDownloadProgress()}" render="@form"/>
+                                                    </h:commandButton>
                                                 </h:form>
-                                                <h:form rendered="#{w.torr_posted eq 1 and w.torr_finish eq 1 and w.torr_error eq 0 and w.torr_paused eq 0}">
+                                                <h:form rendered="#{w.torr_posted eq 1 and w.torr_finish eq 1 and w.torr_error eq 0 and w.torr_paused eq 0 and w.torr_active eq 0}">
                                                     <h:commandButton type="button" styleClass="btn btn-block btn-outline-danger"
                                                                      value="DELETE"/>
                                                     <f:ajax event="click" listener="#{w.deleteMovie()}" render="@this"/>
                                                 </h:form>
-                                                <h:form rendered="#{w.torr_posted eq 1 and w.torr_finish eq 0 and (w.torr_error eq 1 or w.torr_paused eq 1)}">
+                                                <h:form rendered="#{w.torr_posted eq 1 and w.torr_finish eq 0 and (w.torr_error eq 1 or w.torr_paused eq 1 and w.torr_active eq 0)}">
                                                     <h:commandButton type="button" styleClass="btn btn-block btn-outline-warning"
                                                                      value="RETRY"/>
                                                     <f:ajax event="click" listener="#{w.retryDownloadMovie()}" render="@this"/>

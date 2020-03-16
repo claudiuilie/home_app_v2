@@ -53,8 +53,8 @@ public class WatchlistBean {
             movie.setTorr_finish(watchlistSet.getInt("torr_finish"));
             movie.setTorr_error(watchlistSet.getInt("torr_error"));
             movie.setTorr_mb_s(watchlistSet.getInt("torr_mb_s"));
-            movie.setTorr_mb_s(watchlistSet.getInt("on_disk"));
-            movie.setTorr_mb_s(watchlistSet.getInt("on_watchlist"));
+            movie.setTorr_active(watchlistSet.getInt("torr_active"));
+            movie.setOn_disk(watchlistSet.getInt("on_disk"));
 
             watchlist.add(movie);
         }

@@ -26,9 +26,17 @@ public class Movie {
     private int torr_finish;
     private int torr_error;
     private int torr_mb_s;
-    private boolean on_disk;
+    private int torr_active;
+    private int on_disk;
     private boolean on_watchlist;
 
+    public int getTorr_active() {
+        return torr_active;
+    }
+
+    public void setTorr_active(int torr_active) {
+        this.torr_active = torr_active;
+    }
 
     public int getId() {
         return id;
@@ -174,11 +182,11 @@ public class Movie {
         this.torr_mb_s = torr_mb_s;
     }
 
-    public boolean isOn_disk() {
+    public int isOn_disk() {
         return on_disk;
     }
 
-    public void setOn_disk(boolean on_disk) {
+    public void setOn_disk(int on_disk) {
         this.on_disk = on_disk;
     }
 
