@@ -1,11 +1,21 @@
 package com.cinema.entity;
 
+import com.cinema.helpers.HttpResponseToString;
 import com.cinema.helpers.SqlConnector;
+import com.cinema.resources.TrackerConfig;
+import com.cinema.resources.WebtorrentConfig;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
+import java.io.IOException;
+import java.net.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Movie {
     private int id;
@@ -243,8 +253,33 @@ public class Movie {
         System.out.println("Download progress");
     }
 
-    public void downloadMovie() {
-        System.out.println("Download");
+    public void downloadMovie() throws IOException {
+
+        String baseUrl = WebtorrentConfig.BASE_URL+"/download?id="+this.id+"&magnet="+this.magnet_link;
+        URL url = new URL(baseUrl);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestProperty("User-Agent", WebtorrentConfig.USER_AGENT);
+        connection.setRequestMethod("POST");
+        String content = String.valueOf(HttpResponseToString.parseContent(connection));
+
+        JSONParser parser = new JSONParser();
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = (JSONObject)parser.parse(String.valueOf(content));
+        } catch (ParseException e) {
+            System.out.println(e.toString());
+        }
+
+        System.out.println(jsonObject);
+
+        assert jsonObject != null;
+        if(jsonObject.get("posted").equals(true)){
+            this.torr_posted = 1;
+        }else{
+            this.torr_posted = 0;
+            this.torr_error = 1;
+        }
     }
 
     public void retryDownloadMovie() {
