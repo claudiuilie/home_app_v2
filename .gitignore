@@ -1,6 +1,6 @@
 target
 .idea/
-src/main/java/com/cinema/resources/GoogleApiConfig.java
-src/main/java/com/cinema/resources/TrackerConfig.java
+src/main/java/com/app/resources/GoogleApiConfig.java
+src/main/java/com/app/resources/TrackerConfig.java
 
-src/main/java/com/cinema/resources/SqlConfig.java
+src/main/java/com/app/resources/SqlConfig.java

@@ -1,4 +1,4 @@
-package com.cinema.entity;
+package com.app.entity;
 
 import java.util.ArrayList;
 

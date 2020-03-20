@@ -1,8 +1,8 @@
-package com.cinema.beans;
+package com.app.beans;
 
 
-import com.cinema.entity.Movie;
-import com.cinema.helpers.FetchMovies;
+import com.app.entity.Movie;
+import com.app.helpers.FetchMovies;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.IOException;

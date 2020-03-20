@@ -1,7 +1,7 @@
-package com.cinema.helpers;
+package com.app.helpers;
 
-import com.cinema.entity.MovieDetails;
-import com.cinema.resources.GoogleApiConfig;
+import com.app.entity.MovieDetails;
+import com.app.resources.GoogleApiConfig;
 import com.google.gson.Gson;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

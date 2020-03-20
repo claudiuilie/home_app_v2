@@ -1,7 +1,7 @@
-package com.cinema.beans;
+package com.app.beans;
 
-import com.cinema.entity.Movie;
-import com.cinema.helpers.SqlConnector;
+import com.app.entity.Movie;
+import com.app.helpers.SqlConnector;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;

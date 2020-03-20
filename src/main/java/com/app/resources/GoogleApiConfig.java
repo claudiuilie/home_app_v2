@@ -1,4 +1,4 @@
-package com.cinema.resources;
+package com.app.resources;
 
 public interface GoogleApiConfig {
 

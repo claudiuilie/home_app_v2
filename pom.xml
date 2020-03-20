@@ -4,12 +4,12 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.homecontrol.cinema</groupId>
-  <artifactId>cinema</artifactId>
+  <groupId>com.homecontrol.app</groupId>
+  <artifactId>app</artifactId>
   <version>1</version>
   <packaging>war</packaging>
 
-  <name>cinema Maven Webapp</name>
+  <name>app Maven Webapp</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
@@ -37,11 +37,23 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+<!--      <dependency>-->
+<!--          <groupId>javax.faces</groupId>-->
+<!--          <artifactId>javax.faces-api</artifactId>-->
+<!--          <version>2.3</version>-->
+<!--          <scope>provided</scope>-->
+<!--      </dependency>-->
       <dependency>
           <groupId>javax.faces</groupId>
-          <artifactId>javax.faces-api</artifactId>
-          <version>2.3</version>
+          <artifactId>jsf-api</artifactId>
+          <version>2.1</version>
           <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+          <groupId>org.glassfish</groupId>
+          <artifactId>javax.faces</artifactId>
+          <version>2.4.0</version>
       </dependency>
       <dependency>
           <groupId>com.googlecode.json-simple</groupId>
@@ -60,7 +72,7 @@
       </dependency>
   </dependencies>
   <build>
-    <finalName>cinema</finalName>
+    <finalName>app</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <plugin>

@@ -1,8 +1,8 @@
-package com.cinema.helpers;
+package com.app.helpers;
 
-import com.cinema.entity.Movie;
-import com.cinema.entity.MovieDetails;
-import com.cinema.resources.TrackerConfig;
+import com.app.entity.Movie;
+import com.app.entity.MovieDetails;
+import com.app.resources.TrackerConfig;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -23,7 +23,7 @@ import java.util.*;
 public class FetchMovies  {
 
     public static List<Movie> fetchMovies(String input) throws IOException {
-
+System.out.println(input);
         URL url = new URL(TrackerConfig.BASE_URL + input);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestProperty("User-Agent", TrackerConfig.USER_AGENT);

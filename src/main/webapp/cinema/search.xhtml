@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Cinema</title>
+    <h:outputStylesheet library="css" name="carousel.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+</h:head>
+
+<body>
+<!--    <div class="container">-->
+<ui:insert name="content">
+    <ui:include src="../templates/content.xhtml"/>
+</ui:insert>
+
+<div class="container w-75 p-1">
+    <h:form>
+        <div class="input-group mb-3">
+            <h:inputText value="#{searchMovies.input}" required="true" styleClass="form-control">
+                <f:attribute name="placeholder" value="Search movie" />
+            </h:inputText>
+            <div class="input-group-append">
+                <h:commandButton value="Search" action="#{searchMovies.searchMovies}" styleClass="btn btn-outline-secondary"/>
+            </div>
+        </div>
+    </h:form>
+</div>
+
+<!--carousel-->
+<div class="container d-flex justify-content-center mb-2">
+    <!--            alerta-->
+    <h:panelGroup layout="block" styleClass="container-md"
+                  rendered="#{searchMovies.movieList.size() == 0 and searchMovies.input != null}">
+        <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+            No results.
+            <button type="button" class="close text-danger" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">x</span>
+            </button>
+        </div>
+    </h:panelGroup>
+    <!--            alerta-->
+    <h:panelGroup layout="block" styleClass="card text-center w-75" rendered="#{searchMovies.movieList.size() != 0 }">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
+            <!-- indicators -->
+            <ol class="carousel-indicators watchlist-indicators" style="margin-bottom:250px;">
+            </ol>
+            <!-- sliders -->
+            <div class="carousel-inner">
+                <ui:repeat value="#{searchMovies.movieList}" var="m" varStatus="wStatus">
+
+                    <div class="carousel-item  #{wStatus.index eq 0 ? 'active' : ''}">
+                        <div class="container">
+                            <h6 class="text-center m-1 text-truncate">#{m.title}</h6>
+                        </div>
+
+                        <img src="#{m.thumbnail}" alt="First slide" style="width:250px;height:370px;"/>
+
+                        <ul class="list-group list-group-flush">
+                            <li class="p-1 list-group-item text-center">
+                                <a href="#{m.imdb_url}" class="badge badge-warning float-right mr-4"
+                                   target="_blank">
+                                    <strong>IMDb</strong>
+                                </a>
+<!--                            <span class="badge ratings float-left">-->
+<!--                                <span class="empty-stars"/>-->
+<!--                                <span class="full-stars" style="width:70%"/>-->
+<!--                            </span>-->
+                            </li>
+                        </ul>
+                        <ul class="list-group list-group-flush">
+                            <li class="p-1 list-group-item text-center">
+                                <span class="badge badge-secondary">Seeds:
+                                    <span
+                                            class="badge #{m.seeders eq 0 ? 'badge-danger' :  (m.seeders > 20 ? 'badge-success' : 'badge-warning') } ">#{m.seeders}</span>
+                                </span>
+                                <span class="badge badge-secondary">Peers:
+                                    <span
+                                            class="badge #{m.peers eq 0 ? 'badge-danger' :  (m.peers > 20 ? 'badge-success' : 'badge-warning') }">#{m.peers}</span>
+                                </span>
+                                <span class="badge badge-secondary">Size:
+                                    <span class="badge badge-info">#{m.size}</span>
+                                </span>
+                                <span class="badge badge-secondary">Uploaded:
+                                    <span class="badge badge-info">#{m.upload_date}</span>
+                                </span>
+                            </li>
+                        </ul>
+                        <div class="p-2">
+                            <h:form>
+                                <h:commandButton type="button"
+                                                 styleClass="btn btn-block #{m.on_watchlist ? 'btn-success' : 'btn-outline-warning'}"
+                                                 value="#{m.on_watchlist ? 'Added to Watchlist' : 'Add to Watchlist'}"
+                                                 disabled="#{m.on_watchlist}"/>
+                                <f:ajax event="click" listener="#{m.addToWatchlist()}" render="@this"/>
+                            </h:form>
+                        </div>
+                    </div>
+                </ui:repeat>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon ml-4" aria-hidden="true"/>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon mr-4" aria-hidden="true"/>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </h:panelGroup>
+</div>
+
+<h:outputScript library="js" name="carousel.js"/>
+</body>
+
+</html>
+

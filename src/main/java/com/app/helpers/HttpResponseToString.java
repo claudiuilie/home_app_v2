@@ -1,4 +1,4 @@
-package com.cinema.helpers;
+package com.app.helpers;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

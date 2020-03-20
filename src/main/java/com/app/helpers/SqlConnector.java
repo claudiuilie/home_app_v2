@@ -1,6 +1,6 @@
-package com.cinema.helpers;
+package com.app.helpers;
 
-import com.cinema.resources.SqlConfig;
+import com.app.resources.SqlConfig;
 import java.sql.*;
 import java.util.List;
 
