@@ -1,0 +1,12 @@
+.formContent {
+    background: #fff;
+    position: relative;
+    text-align: center;
+    width: 90%;
+    max-width: 450px;
+}
+.wrapper {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}

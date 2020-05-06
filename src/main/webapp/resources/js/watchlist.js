@@ -34,7 +34,7 @@ async function downloadMovie(elem) {
     let id = elem.name;
     let magnet = elem.value;
 
-    await postData("POST", `http://localhost:3000/download?id=${id}&magnet=${magnet}`)
+    await postData("POST", `http://192.168.1.102:3000/download?id=${id}&magnet=${magnet}`)
         .then((response) => {
             if (response.error) {
                 alert(response.error)
@@ -85,7 +85,7 @@ function refreshProgress() {
                         progressBlockId: blockId,
                         progressBlockActive: blockActive,
                         progressBlockMovieId : movieBlockId
-                    }
+                    }S
                 }
             }
 
@@ -95,7 +95,7 @@ function refreshProgress() {
                 clearInterval(refreshRunner)
             }else{
                 refreshRun = true;
-                postData('GET', 'http://localhost:3000/')
+                postData('GET', 'http://192.168.1.102:3000/')
                     .then((data) => {
                         console.log(data);
                         if (Object.keys(data).length > 0) {
@@ -128,6 +128,7 @@ function refreshProgress() {
                                     }else{
                                         progressBlock.children[0].innerText ="Progress: " + taskResults.data[5];
                                         progressBlock.children[1].innerText ="Download speed: " + taskResults.data[4];
+                                        progressBlock.children[2].innerText ="Remaining: " + taskResults.data[11] + "h:"+taskResults.data[10] + "m:"+taskResults.data[9] + "s";
                                     }
                                 }
                             }

@@ -1,7 +1,9 @@
-package com.app.helpers;
+package com.app.helpers.movies;
 
 import com.app.entity.Movie;
 import com.app.entity.MovieDetails;
+import com.app.helpers.HttpResponseToString;
+import com.app.helpers.SqlConnector;
 import com.app.resources.TrackerConfig;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

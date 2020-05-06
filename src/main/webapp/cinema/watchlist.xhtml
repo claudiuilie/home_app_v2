@@ -9,14 +9,12 @@
 <h:head>
     <title>Watchlist</title>
     <h:outputStylesheet library="css" name="carousel.css"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 </h:head>
 
 <body>
 <ui:insert name="content">
     <ui:include src="../templates/content.xhtml"/>
 </ui:insert>
-
 <div class="container d-flex justify-content-center mb-2 mt-2">
                 <div class="card text-center w-75">
                     <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel" data-interval="false">
@@ -52,6 +50,9 @@
                                                 </span>
                                         <span>
                                                     Download speed:
+                                                </span>
+                                        <span>
+                                                    Remaining:
                                                 </span>
                                     </div>
                                     <div class="p-2" id="watchlistActions">
@@ -109,7 +110,6 @@
                     </div>
                 </div>
 </div>
-
 
 <h:outputScript library="js" name="watchlist.js"/>
 </body>

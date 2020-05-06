@@ -1,6 +1,7 @@
-package com.app.helpers;
+package com.app.helpers.movies;
 
 import com.app.entity.MovieDetails;
+import com.app.helpers.HttpResponseToString;
 import com.app.resources.GoogleApiConfig;
 import com.google.gson.Gson;
 import org.json.simple.JSONArray;

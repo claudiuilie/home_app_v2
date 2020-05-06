@@ -12,7 +12,7 @@
 <ui:composition>
     <nav class="navbar navbar-expand-md bg-dark navbar-dark">
         <!-- Brand -->
-        <a class="navbar-brand" href="#{request.contextPath}/home.jsf">Navbar</a>
+        <a class="navbar-brand" href="#{request.contextPath}/faces/home.xhtml">Home</a>
 
         <!-- Toggler/collapsibe Button -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -23,13 +23,18 @@
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#{request.contextPath}/cinema/search.jsf">Movies</a>
+                    <a class="nav-link" href="#{request.contextPath}/faces/cinema/search.xhtml">Movies</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#{request.contextPath}/cinema/watchlist.jsf">Watchlist</a>
+                    <a class="nav-link" href="#{request.contextPath}/faces/cinema/watchlist.xhtml">Watchlist</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="#{request.contextPath}/faces/wallet/summary.xhtml">Wallet</a>
+                </li>
+                <li class="nav-item">
+                    <h:form>
+                        <h:commandLink action="#{login.logout}" styleClass="nav-link" value="Logout"/>
+                    </h:form>
                 </li>
             </ul>
         </div>

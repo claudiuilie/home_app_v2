@@ -2,7 +2,7 @@ package com.app.beans;
 
 
 import com.app.entity.Movie;
-import com.app.helpers.FetchMovies;
+import com.app.helpers.movies.FetchMovies;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.IOException;

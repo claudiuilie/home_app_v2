@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:body>
+    <ui:insert name="content">
+        <ui:include src="../templates/content.xhtml"/>
+    </ui:insert>
+
+    <h:panelGroup layout="block" styleClass="container-md">
+        <h:form>
+            <h:panelGroup layout="block" rendered="true" styleClass="form-group">
+                <label for="years_select">Select year</label>
+                <h:selectOneMenu value = "#{wallet.filterYear}" id="years_select" styleClass="form-control">
+                    <f:selectItem itemValue = "0" itemLabel = "" />
+                    <f:selectItems value="#{wallet.years}" var="y" itemLabel="#{y}" itemValue="#{y}" />
+                    <f:ajax event="valueChange" listener="#{wallet.getMonthsAndYears}" render="months_select_form"/>
+                </h:selectOneMenu>
+
+            </h:panelGroup>
+        </h:form>
+
+        <h:form id="months_select_form">
+                <label for="months_select">Select month</label>
+                <h:selectOneMenu value = "#{wallet.filterMonth}" id="months_select" styleClass="form-control">
+                    <f:selectItem itemValue = "0" itemLabel = "" />
+                    <f:selectItems value="#{wallet.months}" var="m"   itemLabel="#{m}" itemValue="#{m}"/>
+                    <f:ajax event="valueChange" listener="#{wallet.selectMonth}"  render="results"/>
+                </h:selectOneMenu>
+        </h:form>
+
+    </h:panelGroup>
+
+    <h:panelGroup layout="block" id="results">
+
+    </h:panelGroup>
+
+
+</h:body>
+
+</html>

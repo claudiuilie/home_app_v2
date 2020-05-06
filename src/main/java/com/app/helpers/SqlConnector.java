@@ -6,7 +6,6 @@ import java.util.List;
 
 public class SqlConnector {
 
-
     public ResultSet selectResults(String query) {
 
         ResultSet resultSet = null;
@@ -21,10 +20,10 @@ public class SqlConnector {
                 //Execute the statement object;
                 resultSet =  statement.executeQuery(query);
 
-            } catch (SQLException | ClassNotFoundException e) {
-                e.printStackTrace();
-            }
 
+            } catch (SQLException | ClassNotFoundException e) {
+                System.out.println(e);
+            }
             return resultSet;
         }
 
@@ -44,7 +43,7 @@ public class SqlConnector {
             //Execute the statement object;
             System.out.println(statement);
             result =  statement.executeUpdate();
-            
+
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }

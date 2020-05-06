@@ -1,6 +1,6 @@
 target
 .idea/
+src/main/java/com/app/resources/SqlConfig.java
 src/main/java/com/app/resources/GoogleApiConfig.java
 src/main/java/com/app/resources/TrackerConfig.java
-
-src/main/java/com/app/resources/SqlConfig.java
+src/main/java/com/app/resources/WebtorrentConfig.java
