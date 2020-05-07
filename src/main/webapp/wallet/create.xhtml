@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:body>
+    <ui:insert name="content">
+        <ui:include src="../templates/content.xhtml"/>
+    </ui:insert>
+
+    <h:panelGroup layout="block" styleClass="container-md p-3">
+        <h:form>
+
+            <div class="container-md border-success border text-center p-2 mb-3" id="add_income_block">
+
+                <button name="income" type="button" class="btn-outline-success btn-block btn" id="add_income_button" data-toggle="modal" data-target="#wallet_create_modal" onclick="selectInputType(this)">Add</button>
+
+            </div>
+
+            <div class="container-md border-danger border text-center p-2" id="add_outcome_block">
+
+                <button name="outcome" type="button" class="btn-outline-danger btn-block btn" id="add_outcome_button" data-toggle="modal" data-target="#wallet_create_modal" onclick="selectInputType(this)">Add</button>
+
+            </div>
+
+        </h:form>
+    </h:panelGroup>
+
+    <ui:insert name="content">
+        <ui:include src="../templates/wallet_create_modal.xhtml"/>
+    </ui:insert>
+
+</h:body>
+
+<h:outputScript library="js" name="wallet.js"/>
+</html>
