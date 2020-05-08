@@ -4,6 +4,8 @@ let outcomeBlock = document.getElementById("add_outcome_block");
 let modalForm = document.getElementById("wallet_create_form");
 let modalInputs = modalForm.getElementsByTagName("input");
 let modal = document.getElementById("wallet_create_modal");
+let incomeLegend = document.getElementById("income_legend");
+let outcomeLegend = document.getElementById("outcome_legend");
 let flow;
 let formData = {"income":{},"outcome":{}, income_total:0,outcome_total:0};
 
@@ -17,56 +19,127 @@ function addValue(input){
     let details = modalInputs[0].value;
     let value = modalInputs[1].value;
     details.trim();
-    value.trim();
-
-    let newInput = document.createElement("input");
-    newInput.classList.add("form-control");
-    newInput.classList.add("text-center");
-    newInput.setAttribute("type","number");
-    newInput.setAttribute("placeholder","Enter value..");
-    newInput.setAttribute("name",details);
-    newInput.attributes.required = "required";
-    newInput.value = value;
-
-    let newInputLabel = document.createElement("label");
-    newInputLabel.classList.add("text-info");
-    newInputLabel.setAttribute("for",details);
-    newInputLabel.innerHTML = details;
-
 
     if(details === "" || value ===""){
         generateAlert(modalForm,"warning" ,"Details and Value required!");
     }else{
         if(typeof formData[`${flow}`][`${details}`] == 'undefined'){
 
-            details.toLowerCase()
-
+            value = setDigits(value,2);
+            details.toLowerCase();
 
             if(flow === "income"){
                 formData.income[`${details}`] = value;
-                incomeBlock.appendChild(newInputLabel);
-                incomeBlock.appendChild(newInput);
-                for(let x in formData.income)
-                    formData.income_total += formData.income[x];
+                formData.income_total = calculateWithDigits(formData.income_total + value, 2)
+                incomeBlock.appendChild(createInput(details,value,flow));
             }
             else if(flow === "outcome"){
                 formData.outcome[`${details}`] = value;
-                outcomeBlock.appendChild(newInputLabel);
-                outcomeBlock.appendChild(newInput);
-
-                for(let z in formData.outcome)
-                    formData.outcome_total += formData.outcome[z];
+                formData.outcome_total = calculateWithDigits(formData.outcome_total + value, 2);
+                outcomeBlock.appendChild(createInput(details,value,flow));
             }
-
+            updateLegend();
             $(modal).modal("hide");
-
-
         }else{
             generateAlert(modalForm, "danger" , "Duplicate entry!");
         }
-
         modalInputs[0].value = '';
         modalInputs[1].value = '';
     }
 
 }
+
+function calculateWithDigits(x,digits){
+    return parseFloat(x.toFixed(digits)) ;
+}
+
+function setDigits(input , digits){
+    let i = parseFloat(input);
+    return parseFloat(i.toFixed(2));
+}
+
+function removeInput(element){
+    let input = document.getElementById(element.getAttribute("name"));
+    let inputClassList = input.classList;
+    let flow = inputClassList[2];
+    let inputValue;
+    let inputGroup = element.parentElement.parentElement;
+
+    if(input.value.toString().length === 0)
+        inputValue = 0;
+    else
+        inputValue = setDigits(input.value,2);
+
+    formData[`${flow}_total`] = calculateWithDigits(formData[`${flow}_total`] - inputValue, 2);
+    delete formData[flow][input.name];
+    inputGroup.remove();
+    updateLegend();
+}
+
+function updateValues(input){
+
+    let inputValue;
+    let inputDetails = input.name;
+    let inputClassList = input.classList;
+    let flow = inputClassList[2];
+
+    if(input.value.toString().length === 0)
+        inputValue = 0;
+    else
+        inputValue = setDigits(input.value,2);
+
+    let newTotal = calculateWithDigits(formData[`${flow}_total`] - formData[flow][inputDetails], 2);
+    formData[`${flow}_total`] = calculateWithDigits(newTotal + inputValue,2);
+    formData[flow][inputDetails] = inputValue;
+    updateLegend();
+}
+
+function updateLegend(){
+    incomeLegend.innerHTML = "Income: "+formData.income_total;
+    outcomeLegend.innerHTML = "Outcome: "+formData.outcome_total;
+}
+
+function createInput(details,value, flowType) {
+
+    let newInputGroup = document.createElement("div");
+    newInputGroup.classList.add("input-group","input-group-sm","mb-2");
+
+    let groupPrepend = document.createElement("div");
+    groupPrepend.classList.add("input-group-prepend");
+
+    let spanPrepend = document.createElement("span");
+    spanPrepend.classList.add("input-group-text","text-info", "text-capitalize");
+    spanPrepend.innerHTML = "&nbsp"+details;
+
+    let iconPrepend = document.createElement("i");
+    iconPrepend.classList.add("fas","fa-coins");
+
+    let newInput = document.createElement("input");
+    newInput.classList.add("form-control","text-center", flowType, "text-info");
+    newInput.setAttribute("type","number");
+    newInput.setAttribute("id",details+value);
+    newInput.setAttribute("placeholder","Enter value..");
+    newInput.setAttribute("name",details);
+    newInput.setAttribute("onKeyUp","updateValues(this)");
+    newInput.attributes.required = "required";
+    newInput.value = value;
+
+    let groupAppend = document.createElement("div");
+    groupAppend.classList.add("input-group-append");
+
+    let buttonAppend = document.createElement("span");
+    buttonAppend.classList.add("btn","btn-danger");
+    buttonAppend.setAttribute("onclick", "removeInput(this)");
+    buttonAppend.setAttribute("name",details+value)
+    buttonAppend.innerHTML = "X";
+
+    groupPrepend.appendChild(spanPrepend);
+    spanPrepend.prepend(iconPrepend);
+    newInputGroup.appendChild(groupPrepend);
+    newInputGroup.appendChild(newInput);
+    groupAppend.appendChild(buttonAppend);
+    newInputGroup.appendChild(groupAppend);
+
+    return newInputGroup;
+}
+

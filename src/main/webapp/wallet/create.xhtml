@@ -10,23 +10,33 @@
     <ui:insert name="content">
         <ui:include src="../templates/content.xhtml"/>
     </ui:insert>
+    <h:panelGroup layout="block" styleClass="container p1">
+        <h:panelGroup layout="block" styleClass="container-md p-3 mt-3 border border-muted">
 
-    <h:panelGroup layout="block" styleClass="container-md p-3">
-        <h:form>
-
-            <div class="container-md border-success border text-center p-2 mb-3" id="add_income_block">
-
-                <button name="income" type="button" class="btn-outline-success btn-block btn" id="add_income_button" data-toggle="modal" data-target="#wallet_create_modal" onclick="selectInputType(this)">Add</button>
-
-            </div>
-
-            <div class="container-md border-danger border text-center p-2" id="add_outcome_block">
-
-                <button name="outcome" type="button" class="btn-outline-danger btn-block btn" id="add_outcome_button" data-toggle="modal" data-target="#wallet_create_modal" onclick="selectInputType(this)">Add</button>
-
-            </div>
-
-        </h:form>
+            <form action="#">
+                <fieldset class="container-md border-warning border p-2 mb-3" id="add_income_block">
+                    <legend style="width:5%" class="ml-3">
+                        <span class="badge badge-secondary text-warning font-weight-normal" style="padding: .15em .2em;">
+                            <button name="income" type="button" class="btn-outline-secondary btn text-warning font-weight-bold p-0" id="add_income_button" data-toggle="modal" data-target="#wallet_create_modal" onclick="selectInputType(this)">
+                                <span class="badge badge-success font-weight-bold"><i class="fas fa-plus"/></span>
+                                <span id="income_legend" class="badge badge badge-secondary text-warning font-weight-bold">Income</span>
+                            </button>
+                         </span>
+                    </legend>
+                </fieldset>
+                <fieldset class="container-md border-warning border p-2" id="add_outcome_block">
+                    <legend style="width:5%" class="ml-3">
+                        <span class="badge badge-secondary text-success font-weight-normal" style="padding: .15em .2em;">
+                            <button name="outcome" type="button" class="btn-outline-secondary btn text-warning font-weight-bold p-0" id="add_outcome_button" data-toggle="modal" data-target="#wallet_create_modal" onclick="selectInputType(this)">
+                                <span class="badge badge-success  font-weight-bold"><i class="fas fa-plus"/></span>
+                                <span id="outcome_legend" class="badge badge badge-secondary text-warning font-weight-bold">Outcome</span>
+                            </button>
+                         </span>
+                    </legend>
+                </fieldset>
+                <button name="outcome" type="button" class="btn-success btn-block btn mt-2 font-weight-bold" id="total_block_button" data-toggle="modal" >Save</button>
+            </form>
+        </h:panelGroup>
     </h:panelGroup>
 
     <ui:insert name="content">
