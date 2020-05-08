@@ -96,7 +96,7 @@ function updateValues(input){
 
 function updateLegend(){
     incomeLegend.innerHTML = "Income: "+formData.income_total;
-    outcomeLegend.innerHTML = "Outcome: "+formData.outcome_total;
+    outcomeLegend.innerHTML = "Outcome: -"+formData.outcome_total;
 }
 
 function createInput(details,value, flowType) {
@@ -131,7 +131,7 @@ function createInput(details,value, flowType) {
     buttonAppend.classList.add("btn","btn-danger");
     buttonAppend.setAttribute("onclick", "removeInput(this)");
     buttonAppend.setAttribute("name",details+value)
-    buttonAppend.innerHTML = "X";
+    buttonAppend.innerHTML = `<i class=\"fas fa-times\"></i>`;
 
     groupPrepend.appendChild(spanPrepend);
     spanPrepend.prepend(iconPrepend);
