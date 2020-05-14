@@ -13,7 +13,7 @@
     <h:panelGroup layout="block" styleClass="container p1">
         <h:panelGroup layout="block" styleClass="container-md p-3 mt-3 border border-muted">
 
-            <form action="#">
+            <h:form>
                 <fieldset class="container-md border-warning border p-2 mb-3" id="add_income_block">
                     <legend style="width:5%" class="ml-3">
                         <span class="badge badge-secondary text-warning font-weight-normal" style="padding: .15em .2em;">
@@ -34,8 +34,14 @@
                          </span>
                     </legend>
                 </fieldset>
-                <button name="outcome" type="button" class="btn-success btn-block btn mt-2 font-weight-bold" id="total_block_button" data-toggle="modal" >Save</button>
-            </form>
+                    <input type="hidden" id="income" name="income" value="0"/>
+                    <input type="hidden" id="total_income" name="total_income" value="0"/>
+                    <input type="hidden" id="outcome" name="outcome" value="0"/>
+                    <input type="hidden" id="total_outcome" name="total_outcome" value="0"/>
+                <h:commandButton name="myRemote"  process="@this"  actionListener="#{walletCreator.processAction}" styleClass="btn-success btn-block btn mt-2 font-weight-bold" id="total_block_button" value="Save"/>
+
+            </h:form>
+
         </h:panelGroup>
     </h:panelGroup>
 

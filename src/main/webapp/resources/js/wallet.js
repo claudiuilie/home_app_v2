@@ -6,8 +6,12 @@ let modalInputs = modalForm.getElementsByTagName("input");
 let modal = document.getElementById("wallet_create_modal");
 let incomeLegend = document.getElementById("income_legend");
 let outcomeLegend = document.getElementById("outcome_legend");
+let totalIncomeInput = document.getElementById("total_income");
+let totalOutcomeInput = document.getElementById("total_outcome");
+let incomeInput = document.getElementById("income");
+let outcomeInput = document.getElementById("outcome");
 let flow;
-let formData = {"income":{},"outcome":{}, income_total:0,outcome_total:0};
+let formData = {"income":{},"outcome":{}, total_income:0,total_outcome:0};
 
 function selectInputType(button){
     flow = button.name;
@@ -30,12 +34,12 @@ function addValue(input){
 
             if(flow === "income"){
                 formData.income[`${details}`] = value;
-                formData.income_total = calculateWithDigits(formData.income_total + value, 2)
+                formData.total_income = calculateWithDigits(formData.total_income + value, 2)
                 incomeBlock.appendChild(createInput(details,value,flow));
             }
             else if(flow === "outcome"){
                 formData.outcome[`${details}`] = value;
-                formData.outcome_total = calculateWithDigits(formData.outcome_total + value, 2);
+                formData.total_outcome = calculateWithDigits(formData.total_outcome + value, 2);
                 outcomeBlock.appendChild(createInput(details,value,flow));
             }
             updateLegend();
@@ -95,8 +99,12 @@ function updateValues(input){
 }
 
 function updateLegend(){
-    incomeLegend.innerHTML = "Income: "+formData.income_total;
-    outcomeLegend.innerHTML = "Outcome: -"+formData.outcome_total;
+    incomeLegend.innerHTML = "Income: "+formData.total_income;
+    outcomeLegend.innerHTML = "Outcome: -"+formData.total_outcome;
+    totalIncomeInput.value = formData.total_income;
+    totalOutcomeInput.value = formData.total_outcome;
+    incomeInput.value = JSON.stringify(formData.income);
+    outcomeInput.value = JSON.stringify(formData.outcome);
 }
 
 function createInput(details,value, flowType) {
